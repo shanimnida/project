@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="signup-box">
-        <form method="POST" class="signup-form" id="signup-form" onsubmit="submitSignUp(event)">
+        <form action="/signup" method="POST" class="signup-form" id="signup-form" onsubmit="submitSignUp(event)">
             <h1>Sign Up</h1>
             <input type="text" name="full_name" id="full_name" placeholder="Full Name" required>
             <input type="tel" name="mob_number" id="mob_number" placeholder="Mobile Number (e.g., 0912 345 6789)" required pattern="^09\d{2} ?\d{3} ?\d{4}$" maxlength="13">
