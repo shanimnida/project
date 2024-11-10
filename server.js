@@ -18,7 +18,7 @@ const sgMail = require('@sendgrid/mail'); // SendGrid package
 sgMail.setApiKey(process.env.SENDGRID_API_KEY); // Set SendGrid API key
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -250,4 +250,7 @@ mongoose.connect(mongoUri)
             console.log(`Server is running on http://localhost:${PORT}`);
         });
     })
-    .catch((err) => console.error('Error connecting to MongoDB:', err));
+    .catch((err) => {
+        console.error('Error connecting to MongoDB:', err);
+        process.exit(1);
+    });
