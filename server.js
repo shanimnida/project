@@ -2,8 +2,6 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
-const Mailgun = require('mailgun.js');
-const formData = require('form-data');
 const path = require('path');
 const Token = require('./models/Token');
 const User = require('./models/User');
@@ -14,13 +12,10 @@ const MongoStore = require('connect-mongo');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const validator = require('validator');
-const mailgun = new Mailgun(formData);
+const sgMail = require('@sendgrid/mail'); // SendGrid package
 
-// Mailgun setup
-const mg = mailgun.client({
-    username: 'api',
-    key: process.env.MAILGUN_API_KEY,
-});
+// SendGrid setup
+sgMail.setApiKey(process.env.SENDGRID_API_KEY); // Set SendGrid API key
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -127,21 +122,22 @@ app.post('/forgot-password', async (req, res) => {
         }
 
         const msg = {
-            from: 'shanimnida69@gmail.com',
             to: email,
+            from: 'shanimnida69@gmail.com', // Replace with your verified SendGrid email
             subject: 'Password Reset Request',
             text: `Your password reset token is: ${resetToken}`,
-            html: `<p>Your password reset token is:</p><h3>${resetToken}</h3>`,
+            html: `<p>Your password reset token is:</p><h3>${resetToken}</h3>`
         };
 
-        // Sending email with mailgun.js
-        await mg.messages.create(process.env.MAILGUN_DOMAIN, msg);
+        // Sending email with SendGrid
+        await sgMail.send(msg);
         res.status(200).json({ success: true, message: 'Password reset email sent successfully' });
     } catch (error) {
         console.error('Error processing password reset request:', error);
         res.status(500).json({ success: false, message: 'Error processing your request' });
     }
 });
+
 // Reset password endpoint
 app.post('/reset-password', async (req, res) => {
     const { resetKey, newPassword } = req.body;
@@ -207,7 +203,6 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-
 // Login Route with Rate Limiter
 app.post('/index', loginLimiter, async (req, res) => {
     const { email, password } = req.body;
@@ -235,7 +230,7 @@ app.post('/index', loginLimiter, async (req, res) => {
     }
 });
 
-/// Logout Route
+// Logout Route
 app.post('/logout', (req, res) => {
     // Destroy the session to log the user out
     req.session.destroy((err) => {
@@ -249,11 +244,11 @@ app.post('/logout', (req, res) => {
     });
 });
 
-
-
 mongoose.connect(mongoUri)
     .then(() => {
         console.log('Connected to MongoDB');
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}`);
+        });
     })
-    .catch(err => console.log('Error connecting to MongoDB:', err));
+    .catch((err) => console.error('Error connecting to MongoDB:', err));
