@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notflix Sign In</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-box">
+        <form class="login-form" id="login-form" onsubmit="submitLogin(event)">
+            <h1>Sign In</h1>
+            <input type="text" name="email" id="email" placeholder="Email" required oninput="validateEmail(event.target.value, 'login_message')">
+            <h3 id="login_message" class="error-message" style="color: red; display: none;"></h3>
+            <div class="password-container">
+                <input type="password" name="password" id="password" placeholder="Password" required minlength="8">
+                <span class="toggle-password" onclick="togglePassword('password')">👁</span>
+            </div>
+            <h3 id="login_error_message" class="error-message" style="color: red; display: none;"></h3>
+            <button type="submit" class="login-button">Sign In</button>
+            <div class="login-help">
+                <label>
+                    <input type="checkbox" id="rememberMe"> Remember Me
+                </label>
+                <a href="forgot-password.html">Forgot Password?</a>
+            </div>
+            <div class="signup-link">
+                <span>New to Notflix? <a href="signup.html">Sign up now</a>.</span>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Ensure Material Icons font is included -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Netflix_logo.svg" alt="Netflix Logo">
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">TV Shows</a>
+            <a href="#">Movies</a>
+            <a href="#">New & Popular</a>
+            <a href="#">My List</a>
+        </nav>
+        <ul>
+            <li>
+                <!-- Logout link with Material icon and text -->
+                <a href="#" id="logoutLink" title="Logout">
+                    <span class="material-icons">logout</span> Logout
+                </a>
+            </li>
+        </ul>
+    </header>
+
+    <div class="sidebar-welcome">
+        <h2>Hello, <span id="userEmail">[User's Email]</span>!</h2>
+    </div>
+
+    <div class="hero">
+        <h1>Unlimited Movies, TV Shows, and More.</h1>
+    </div>
+
+    <div class="content">
+        <div class="featured">
+            <h2>Featured Movies</h2>
+        </div>
+    </div>
+
+    <script>
+        // Fetch user details when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchUserDetails();
+        });
+
+        // Function to fetch and display user details
+        async function fetchUserDetails() {
+            try {
+                const response = await fetch('/user-details', { credentials: 'include' });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user details.');
+                }
+                const data = await response.json();
+                console.log(data); // Check if data contains the email
+
+                if (data.success) {
+                    document.getElementById('userEmail').textContent = data.user.email;
+                } else {
+                    console.error('Failed to fetch user details:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        }
+
+        // Add logout functionality
+        document.getElementById('logoutLink').addEventListener('click', function (event) {
+            event.preventDefault();  // Prevent default behavior of the link
+            performLogout();  // Call logout function
+        });
+
+        // Function to handle logout
+        // Function to handle logout
+        // Frontend logout function
+        async function performLogout() {
+            try {
+                const response = await fetch('/logout', {
+                    method: 'POST',
+                    credentials: 'include' // Ensures the session cookie is sent along with the request
+                });
+
+                if (response.ok) {
+                    window.location.href = 'index.html'; // Redirect to login page after logout
+                } else {
+                    console.error('Logout failed');
+                }
+            } catch (error) {
+                console.error('Error during logout:', error);
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

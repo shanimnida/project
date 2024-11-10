@@ -1,0 +1,148 @@
+/* Full-Page Background */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('login_background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(150, 150, 150); 
+}
+
+/* Centered Box Styles */
+.signup-box, .login-box, .forgot-password-box, .reset-password-box {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 60px 68px; /* You can adjust padding if needed */
+    width: 100%;
+    max-width: 350px; /* Adjust max-width for reset-password-box if necessary */
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+/* Headings Styles */
+h1 {
+    color: white;
+    margin-bottom: 28px; /* This is maintained for consistency across forms */
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Input Field Styles */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="tel"] { 
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: #333; 
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input::placeholder {
+    color: #8c8c8c; 
+}
+
+/* Button Styles */
+.signup-button, .login-button, .reset-button {
+    width: 100%;
+    padding: 16px;
+    background-color: #e50914;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.signup-button:hover, .login-button:hover, .reset-button:hover {
+    background-color: #f6121d;
+}
+
+/* Error Message Styles */
+.error-message, h3 {
+    color: red; 
+    font-size: 13px;
+    margin-top: 10px;
+    display: none; 
+}
+
+/* Login/Signup Link Section */
+.login-link, .signup-link {
+    text-align: left;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.login-link a, .signup-link a, .back-to-login-link a {
+    color: white;
+    text-decoration: none;
+}
+
+.back-to-login-link {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.login-link a:hover, .signup-link a:hover, .back-to-login-link a:hover {
+    text-decoration: underline; 
+}
+
+/* Login Help Section */
+.login-help {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.login-help a {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.login-help a:hover {
+    text-decoration: underline; 
+}
+
+/* Toggle Password Visibility */
+.password-container {
+    position: relative;
+    margin: 10px 0;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.5); 
+}
+
+.toggle-password:hover {
+    color: white; 
+}
+
+/* Forgot Password Box Styles */
+.forgot-password-box {
+    text-align: center;
+}
+
+.forgot-password-box p {
+    color: white; 
+    font-size: 14px;
+    margin: 10px 0;
+}
