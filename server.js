@@ -66,6 +66,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+// Serve login page
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
 // Serve pages
 app.get('/forgot-password', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'forgot-password.html'));
