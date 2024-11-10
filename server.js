@@ -246,14 +246,18 @@ app.post('/logout', (req, res) => {
     });
 });
 
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  ssl: true,  // Ensure SSL is explicitly enabled
+mongoose.connect(mongoUri, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    ssl: true // Ensure SSL is enabled
 })
-.then(() => {
-  console.log('Connected to MongoDB!');
-})
-.catch(err => {
-  console.log('Error connecting to MongoDB:', err);
-});
+    .then(() => {
+        console.log('Connected to MongoDB');
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error('Error connecting to MongoDB:', err);
+        process.exit(1); // Optional: exit the app on failure to connect to DB
+    });
