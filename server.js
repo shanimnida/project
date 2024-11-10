@@ -206,7 +206,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // Login Route with Rate Limiter
-app.post('/index', loginLimiter, async (req, res) => {
+app.post('/login', loginLimiter, async (req, res) => {
     const { email, password } = req.body;
 
     try {

@@ -113,7 +113,7 @@ function submitSignUp(event) {
 
         if (data.success) {
             alert('Account created successfully! Redirecting...');
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
         } else {
             alert(data.message); // Show error message from the server
         }
@@ -145,7 +145,7 @@ function submitLogin(event) {
         password: password,
     };
 
-    fetch('/index', {
+    fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -191,7 +191,7 @@ async function submitResetPassword(event) {
 
         if (response.ok) {
             alert(result.message);
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
         } else {
             document.getElementById('token_message').textContent = result.message;
             document.getElementById('token_message').style.display = 'block';
