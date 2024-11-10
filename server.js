@@ -247,7 +247,9 @@ app.post('/logout', (req, res) => {
 });
 
 mongoose.connect(mongoUri, { 
-    ssl: true // Ensure SSL is enabled
+    ssl: true, // Ensure SSL is enabled
+    tls: true, // Ensure TLS is enabled
+    
 })
     .then(() => {
         console.log('Connected to MongoDB');
