@@ -12,13 +12,16 @@ const MongoStore = require('connect-mongo');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const validator = require('validator');
-const sgMail = require('@sendgrid/mail'); // SendGrid package
+const sgMail = require('@sendgrid/mail');
 
 // SendGrid setup
-sgMail.setApiKey(process.env.SENDGRID_API_KEY); // Set SendGrid API key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY); 
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -243,14 +246,14 @@ app.post('/logout', (req, res) => {
     });
 });
 
-mongoose.connect(mongoUri)
-    .then(() => {
-        console.log('Connected to MongoDB');
-        app.listen(PORT, () => {
-            console.log(`Server is running on http://localhost:${PORT}`);
-        });
-    })
-    .catch((err) => {
-        console.error('Error connecting to MongoDB:', err);
-        process.exit(1);
-    });
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  ssl: true,  // Ensure SSL is explicitly enabled
+})
+.then(() => {
+  console.log('Connected to MongoDB!');
+})
+.catch(err => {
+  console.log('Error connecting to MongoDB:', err);
+});
